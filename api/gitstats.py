@@ -2,8 +2,8 @@ import os
 import requests
 import json
 from dotenv import load_dotenv
-
-access_token = "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"
+load_dotenv = load_dotenv("../.env")
+access_token = os.getenv("ACCESS_TOKEN")
 headers = {"Authorization": "Bearer " + access_token}
 
 username = "justbautista"
@@ -114,4 +114,10 @@ def buildStats(user, data, forked):
 
     return statsJson
 
-return "Hello world"
+repos = get_all_repos(username)
+print(len(repos))
+with open("api.json", "w") as f:
+    f.write(json.dumps(repos))
+
+with open("result.json", "w") as f:
+    f.write(json.dumps(buildStats(username, repos, True)))
