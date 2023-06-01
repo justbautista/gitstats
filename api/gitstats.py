@@ -2,20 +2,21 @@ import os
 import requests
 import json
 from dotenv import load_dotenv
+
 load_dotenv = load_dotenv("../.env")
 access_token = os.getenv("ACCESS_TOKEN")
 headers = {"Authorization": "Bearer " + access_token}
 
-username = "justbautista"
+username = "seantomburke"
 PER_PAGE = 100
-fork = True
+fork = False
 
 def get_total_repo_count(user):
-    response = requests.get(
-        f"https://api.github.com/users/{user}", headers=headers
-    ).json()
+    try:
+        response = requests.get(f"https://api.github.com/users/{user}", headers=headers).json()
+    except:
+        print(response)
     return response["public_repos"]
-
 
 def get_all_repos(user):
     totalRepoCount = get_total_repo_count(user)
@@ -116,6 +117,7 @@ def buildStats(user, data, forked):
 
 repos = get_all_repos(username)
 print(len(repos))
+
 with open("api.json", "w") as f:
     f.write(json.dumps(repos))
 

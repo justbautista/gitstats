@@ -1,0 +1,38 @@
+{
+	"user": "seantomburke",
+	"forked": true,
+	"stats": {
+		"total_repo_count": 88,
+		"total_stargazers_count": 116,
+		"total_fork_count": 76,
+		"avg_size": 10242.022727272728,
+		"list_of_languages": [
+			["PHP", 36695093],
+			["JavaScript", 16174140],
+			["HTML", 2829255],
+			["CSS", 2420249],
+			["Objective-C", 2077112],
+			["C", 246850],
+			["Java", 193857],
+			["Processing", 59846],
+			["C++", 52582],
+			["TypeScript", 50525],
+			["Harbour", 48550],
+			["Perl", 36130],
+			["Python", 32584],
+			["Makefile", 20544],
+			["Swift", 15217],
+			["Arduino", 15130],
+			["Shell", 14960],
+			["Batchfile", 12934],
+			["Vim Script", 12178],
+			["Ruby", 11973],
+			["Dockerfile", 1641],
+			["ApacheConf", 1487],
+			["EJS", 815],
+			["Hack", 686],
+			["Roff", 29],
+			["Groff", 29]
+		]
+	}
+}
