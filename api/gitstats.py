@@ -3,16 +3,22 @@ import requests
 import json
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv("../.env")
 
-api_key = os.getenv('API_KEY')
+access_token = os.getenv("ACCESS_TOKEN")
+headers = {"Authorization": "Bearer " + access_token}
 
 username = "seantomburke"
 PER_PAGE = 100
+fork = True
+
 
 def get_total_repo_count(user):
-    response = requests.get(f"https://api.github.com/users/{username}").json()
+    response = requests.get(
+        f"https://api.github.com/users/{username}", headers=headers
+    ).json()
     return response["public_repos"]
+
 
 def get_all_repos(user):
     totalRepoCount = get_total_repo_count(user)
@@ -29,8 +35,11 @@ def get_all_repos(user):
 
     while pageNumber <= totalPages:
         try:
-            response = requests.get(f"https://api.github.com/users/{username}/repos?per_page={PER_PAGE}&page={pageNumber}")
-            completeRepoList.extend(response.json())   
+            response = requests.get(
+                f"https://api.github.com/users/{username}/repos?per_page={PER_PAGE}&page={pageNumber}",
+                headers=headers,
+            )
+            completeRepoList.extend(response.json())
             pageNumber += 1
             print(response.status_code)
         except:
@@ -38,11 +47,72 @@ def get_all_repos(user):
 
     return completeRepoList
 
-def buildStats(data):
-    pass
+
+def get_language_list(url):
+    response = requests.get(url, headers=headers).json()
+    languageList = []
+
+    for language, count in response.items():
+        languageList.append((language, count))
+
+    return languageList
+
+def buildStats(user, data, forked):
+    """
+    Total count of repositories
+    Total stargazers for all repositories
+    Total fork count for all repositories
+    Average size of a repository in the appropriate KB, MB or GB
+    A list of languages with their counts, sorted by the most used to least used
+    """
+    totalStarGazers = 0
+    totalForkCount = 0
+    totalRepoSize = 0
+    totalRepoCount = get_total_repo_count(user)
+    languageCounts = {}
+    listOfLanguages = []
+
+    statsJson = {}
+    statsJson["user"] = user
+    statsJson["forked"] = forked
+
+    for repo in data:
+        languageList = get_language_list(repo["languages_url"])
+
+        if len(languageList) == 0:
+            languageList = [(repo["language"], 1)]
+
+        for language in languageList:
+            if language[0] in languageCounts:
+                languageCounts[language[0]] += language[1]
+            else:
+                languageCounts[language[0]] = language[1]
+
+        
+        totalStarGazers += repo["stargazers_count"]
+        totalForkCount += repo["forks"]
+        totalRepoSize += repo["size"]
+
+    avgRepoSize = totalRepoSize / totalRepoCount
+
+    for language, count in languageCounts.items():
+        listOfLanguages.append((language, count))
+    
+    statsJson["stats"] = {
+        "total_repo_count": totalRepoCount,
+        "total_stargazers_count": totalStarGazers,
+        "total_forks": totalForkCount,
+        "avg_size": avgRepoSize,
+        "list_of_languages": listOfLanguages,
+    }
+
+    return statsJson
 
 repos = get_all_repos(username)
 print(len(repos))
+
 with open("api.json", "w") as f:
     f.write(json.dumps(repos))
 
+with open("result.json", "w") as f:
+    f.write(json.dumps(buildStats(username, repos, True)))
