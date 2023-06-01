@@ -122,4 +122,4 @@ with open("api.json", "w") as f:
     f.write(json.dumps(repos))
 
 with open("result.json", "w") as f:
-    f.write(json.dumps(buildStats(username, repos, True)))
+    f.write(json.dumps(buildStats(username, repos, fork)))
