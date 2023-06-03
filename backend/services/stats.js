@@ -1,5 +1,4 @@
 const { Octokit, App } = require("octokit")
-
 const octokit = new Octokit({
     auth: process.env.ACCESS_TOKEN
 })
