@@ -5,18 +5,22 @@ const octokit = new Octokit({
 
 const getAllRepos = async (username) => {
     try {
-        let response = await octokit.rest.repos.listForUser("GET /users/{username}/repos", {
+        const response = await octokit.rest.repos.listForUser("GET /users/{username}/repos", {
             username: username,
             per_page: 100
         })
-
-        console.log(response.data.length)
     
         return response
     }
-    catch (err) {
-        console.log('aoishdi')
-        return err
+    catch (error) {
+        console.error(error.status, error.message, error.stack)
+
+        if (error.status === 404) {
+            throw new Error("User not found")
+        }
+        else {
+            throw new Error("API Error")
+        }
     }
 }
 
