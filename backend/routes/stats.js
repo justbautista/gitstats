@@ -7,7 +7,7 @@ const router = express.Router()
 const { getAgreggateStats } = require("../controllers/stats")
 
 // set route path to speficied function from controllers
-router.get("/", getAgreggateStats)
+router.post("/", getAgreggateStats)
 
 // export router for use in app.js
 module.exports = router

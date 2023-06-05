@@ -16,7 +16,7 @@ const getAllRepos = async (username) => {
         console.error(error.status, error.message, error.stack)
 
         if (error.status === 404) {
-            throw new Error("User not found")
+            throw new Error("User Not Found")
         }
         else {
             throw new Error("API Error")
