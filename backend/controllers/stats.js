@@ -2,7 +2,8 @@
 const { getAllRepos } = require("../services/stats")
 
 const getAgreggateStats = async (req, res) => {
-    const allRepos = await getAllRepos("justbautista", true)
+    const { username, forked } = req.body
+    const allRepos = await getAllRepos(username)
     
     return res.json(allRepos)
 }
