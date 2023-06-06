@@ -17,5 +17,5 @@ const statsRouter = require("./routes/stats")
 app.use("/stats", statsRouter)
 
 // creates server and starts listening for any incoming requests
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 8000
 app.listen(port)
