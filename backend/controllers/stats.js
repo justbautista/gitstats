@@ -7,9 +7,9 @@ const getAgreggateStats = async (req, res) => {
 
     try {
         const allRepos = await getAllRepos(username)
-        const aggregatedStats = aggregate(allRepos.data, forked)
-
-        return res.json(aggregatedStats)
+        const aggregateStats = await aggregate(allRepos.data, forked, username)
+        
+        return res.json(aggregateStats)
     }
     catch (error) {
         return res.status(500).send(error.message)

@@ -24,4 +24,16 @@ const getAllRepos = async (username) => {
     }
 }
 
-module.exports = { getAllRepos }
+const getData = async (url) => {
+    try {
+        const response = await octokit.request(url)
+        
+        return response.data
+    }
+    catch (error) {
+        console.error(error.status, error.message, error.stack)
+        throw new Error("API Error")
+    }
+}
+
+module.exports = { getAllRepos, getData }
