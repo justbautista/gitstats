@@ -26,7 +26,7 @@ export default function Results({ username, forked }) {
             }
 
             try {
-                const response = await fetch("http://localhost:8000/stats", {
+                const response = await fetch(process.env.BACKEND_URL, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
