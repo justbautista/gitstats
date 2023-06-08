@@ -13,7 +13,7 @@ const getAllRepos = async (username) => {
         return response
     }
     catch (error) {
-        console.error(error.status, error.message, error.stack)
+        console.error(error.status, error.message)
 
         if (error.status === 404) {
             throw new Error("User Not Found")
@@ -31,7 +31,7 @@ const getData = async (url) => {
         return response.data
     }
     catch (error) {
-        console.error(error.status, error.message, error.stack)
+        console.error(error.status, error.message)
         throw new Error("API Error")
     }
 }

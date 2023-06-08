@@ -4,7 +4,7 @@ const { aggregate } = require("../helpers/calculate")
 
 const getAgreggateStats = async (req, res) => {
     const { username, forked } = req.body
-    console.log(req.body)
+
     try {
         const allRepos = await getAllRepos(username)
         const aggregateStats = await aggregate(allRepos.data, forked, username)
@@ -12,7 +12,7 @@ const getAgreggateStats = async (req, res) => {
         return res.json(aggregateStats)
     }
     catch (error) {
-        return res.status(500).send(error.message)
+        return res.status(500).json({ "message": error.message })
     }
     
 }

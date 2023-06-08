@@ -54,7 +54,7 @@ const aggregate = async (data, forked, username) => {
     const aggregateStats = {
         "user": username,
         "forked": forked,
-        "stats": { stats }
+        "stats": { ...stats }
     }
 
 	return aggregateStats

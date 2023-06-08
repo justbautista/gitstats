@@ -8,6 +8,7 @@ export default function App() {
 
 	return (
         <>
+            <h1 className="display-1 text-center py-5">gitstats</h1>
 		    <Search 
                 setUsername={ setUsername }
                 forked={ forked }
