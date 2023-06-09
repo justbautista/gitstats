@@ -8,7 +8,9 @@ A website where you can see aggregate data of your GitHub repos. Originally made
 
 **Frontend:** React, Bootstrap, Netlify
 
-**Backend:** Node, Express, Octokit, Render
+**Backend:** Node, Express, Render
+
+**Additional Tools:** [Octokit](https://github.com/octokit)
 
 
 ## Features
