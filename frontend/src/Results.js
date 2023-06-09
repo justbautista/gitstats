@@ -26,7 +26,7 @@ export default function Results({ username, forked }) {
             }
 
             try {
-                const response = await fetch("https://gitstats-api.onrender.com/stats", {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URI}/stats`, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
